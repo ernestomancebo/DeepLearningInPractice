@@ -5,9 +5,9 @@ data_directories = ['train', 'validation', 'test']
 target_directories = ['cat', 'dog']
 
 
-def populate_base_dir(base_dir):
+def populate_base_dir(original_dataset_dir):
     original_path = os.curdir
-    os.chdir(base_dir)
+    os.chdir(original_dataset_dir)
 
     # Push data to train folder
     shutil.unpack_archive('train.zip', 'train', 'zip')
@@ -72,7 +72,8 @@ def set_up_cat_dogs_small_dataset():
     base_dir = 'cats_and_dogs_small'
     directories: dict = {}
 
-    populate_base_dir(base_dir)
+    os.mkdir(base_dir)
+    populate_base_dir(original_dataset_dir)
     directories = init_dataset_directories(base_dir, directories)
     directories = populate_dataset_directories(
         original_dataset_dir, directories)
