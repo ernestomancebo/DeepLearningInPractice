@@ -5,20 +5,23 @@ data_directories = ['train', 'validation', 'test']
 target_directories = ['cat', 'dog']
 
 
-def populate_base_dir(original_dataset_dir):
-    original_path = os.curdir
+def populate_base_dir(original_dataset_dir: str, root_path: str = '/content'):
     os.chdir(original_dataset_dir)
 
     # Push data to train folder
     shutil.unpack_archive('train.zip', 'train', 'zip')
-    shutil.move('train/train/*', 'train')
+    src = 'train/train'
+    files = os.listdir(src)
+
+    for f in files:
+        shutil.move(f'{src}/{f}', 'train')
 
     # clean up
-    shutil.rmtree('train/train/')
+    shutil.rmtree(src)
     os.remove('train.zip')
 
     # go back to the top
-    os.chdir(original_path)
+    os.chdir(root_path)
 
 
 def init_dataset_directories(base_dir: str, directories: dict):
