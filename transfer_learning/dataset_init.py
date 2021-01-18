@@ -25,8 +25,6 @@ def populate_base_dir(original_dataset_dir: str, root_path: str = '/content'):
 
 
 def init_dataset_directories(base_dir: str, directories: dict):
-    os.mkdir(base_dir)
-
     # Create train, validation and test directories
     for data_dir in data_directories:
         directories[data_dir] = os.path.join(base_dir, data_dir)
